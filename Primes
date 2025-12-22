@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prime Rays — Flash & Stay</title>
+  <style>
+    html, body { margin:0; padding:0; background:#000; color:#ddd; }
+    canvas { display:block; }
+  </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+<script>
+/**
+ * Prime Rays (Flash & Stay)
+ * - Top: 99 persistent rays (first 99 unique prime mod 360 degrees encountered)
+ * - Rays flash on hit, then remain visible
+ * - Bottom: unwrapped cylinder (360° x layers) fills permanently, flashes on new hits
+ * - Twin primes (gap=2) flash white
+ * - ROYGBIV hues on black
+ *
+ * Tweaks:
+ *   PRIMES_TO_SHOW: how many primes to process total
+ *   PRIMES_PER_FRAME: speed
+ */
+
+const PRIMES_TO_SHOW = 5000;
+const PRIMES_PER_FRAME = 25;
+
+const DISPLAY_RAYS = 99;
+const FLASH_LEN = 10;
+const TWIN_FLASH_LEN = 14;
+
+class PrimeStream {
+  constructor(){ this.primes=[]; this.candidate=2; }
+  reset(){ this.primes=[]; this.candidate=2; }
+  next(){
+    while(true){
+      const n=this.candidate++;
+      if(n===2){ this.primes.push(2); return 2; }
+      if(n%2===0) continue;
+      const r=Math.floor(Math.sqrt(n));
+      let ok=true;
+      for(const p of this.primes){ if(p>r) break; if(n%p===0){ ok=false; break; } }
+      if(ok){ this.primes.push(n); return n; }
+    }
+  }
+}
+
+// ROYGBIV-ish gradient across degrees using HSB
+function roygbiv(deg, a=255){
+  const stops=[{d:0,h:0},{d:60,h:30},{d:120,h:55},{d:180,h:120},{d:240,h:210},{d:300,h:250},{d:360,h:290}];
+  let x=((deg%360)+360)%360, i=0;
+  while(i<stops.length-1 && x>stops[i+1].d) i++;
+  const A=stops[i], B=stops[i+1];
+  const t=(x-A.d)/(B.d-A.d);
+  const h=A.h+t*(B.h-A.h);
+  colorMode(HSB,360,100,100,255);
+  const c=color(h,90,100,a);
+  colorMode(RGB,255);
+  return c;
+}
+
+// ---------- State ----------
+let stream = new PrimeStream();
+let primeIndex = 0;
+let lastPrime = null;
+
+const hits = new Array(360).fill(0);
+const flash = new Array(360).fill(0);      // countdown timers
+const twinFlash = new Array(360).fill(0);  // countdown timers
+
+const displaySet = new Set();
+const displayList = []; // first 99 unique degrees, stable order
+
+let cylinder = []; // array of Uint16Array(360)
+let maxLayer = 0;
+
+let rotation = 0;
+
+function ensureLayer(L){
+  while(cylinder.length <= L) cylinder.push(new Uint16Array(360));
+}
+
+function addPrime(){
+  if(primeIndex >= PRIMES_TO_SHOW) return;
+
+  const p = stream.next();
+  primeIndex++;
+
+  const d = ((p % 360) + 360) % 360;
+
+  // Collect first 99 unique ray degrees for the unit-circle bones
+  if(displayList.length < DISPLAY_RAYS && !displaySet.has(d)){
+    displaySet.add(d);
+    displayList.push(d);
+  }
+
+  // Always update stats
+  hits[d]++;
+  flash[d] = FLASH_LEN;
+
+  // Twin primes flash white on both rays
+  if(lastPrime !== null && (p - lastPrime) === 2){
+    const d0 = ((lastPrime % 360) + 360) % 360;
+    twinFlash[d0] = TWIN_FLASH_LEN;
+    twinFlash[d]  = TWIN_FLASH_LEN;
+  }
+  lastPrime = p;
+
+  // Cylinder
+  const L = Math.floor((primeIndex - 1) / 360);
+  ensureLayer(L);
+  cylinder[L][d]++;
+  if(L > maxLayer) maxLayer = L;
+
+  // Rotate only while still collecting 99 rays
+  if(displayList.length < DISPLAY_RAYS) rotation += 0.018;
+}
+
+function setup(){
+  createCanvas(window.innerWidth, window.innerHeight);
+  pixelDensity(1);
+  background(0);
+}
+
+function windowResized(){
+  resizeCanvas(window.innerWidth, window.innerHeight);
+}
+
+function draw(){
+  background(0);
+
+  // Advance primes
+  for(let i=0; i<PRIMES_PER_FRAME; i++) addPrime();
+
+  // Decrement flash timers
+  for(let i=0; i<360; i++){
+    if(flash[i] > 0) flash[i]--;
+    if(twinFlash[i] > 0) twinFlash[i]--;
+  }
+
+  // Layout: vertical stack
+  const pad = 16;
+  const W = width - pad*2;
+  const H = height - pad*2;
+
+  const topH = Math.floor(H * 0.48);
+  const botH = H - topH - 12;
+
+  // ---------- TOP: Unit circle ----------
+  const cx = pad + W/2;
+  const cy = pad + topH*0.55;
+  const r  = Math.min(W, topH) * 0.34;
+
+  // Guide circle
+  noFill(); stroke(90); strokeWeight(1);
+  circle(cx, cy, r*2);
+
+  // Rays (bones): flash then stay
+  push();
+  translate(cx, cy);
+  rotate(rotation);
+
+  for(const d of displayList){
+    const f  = flash[d] / FLASH_LEN;               // 0..1
+    const tf = twinFlash[d] / TWIN_FLASH_LEN;      // 0..1
+    const a  = radians(d);
+
+    // Always-on brightness + flash boost
+    if(tf > 0){
+      stroke(255, 255, 255, 160 + 95*tf);
+    } else {
+      stroke(roygbiv(d, Math.min(255, 210 + 45 + 160*f)));
+    }
+
+    // Always-on thickness + flash thickness
+    strokeWeight(2.0 + 2.0*f + 2.5*tf);
+
+    line(0, 0, Math.cos(a)*r, Math.sin(a)*r);
+  }
+
+  // Center dot
+  noStroke(); fill(255);
+  circle(0, 0, 4);
+
+  pop();
+
+  // ---------- BOTTOM: Cylinder unwrapped ----------
+  const y0 = pad + topH + 12;
+  const layers = Math.max(1, maxLayer + 1);
+
+  const cw = W / 360.0;
+  const ch = botH / layers;
+
+  // Find max cell for intensity scaling
+  let maxCell = 1;
+  for(let L=0; L<layers; L++){
+    const row = cylinder[L];
+    if(!row) continue;
+    for(let d=0; d<360; d++) maxCell = Math.max(maxCell, row[d]);
+  }
+
+  noStroke();
+  for(let L=0; L<layers; L++){
+    const row = cylinder[L];
+    if(!row) continue;
+
+    for(let d=0; d<360; d++){
+      const v = row[d];
+      if(v === 0 && flash[d] === 0 && twinFlash[d] === 0) continue;
+
+      const f  = flash[d] / FLASH_LEN;
+      const tf = twinFlash[d] / TWIN_FLASH_LEN;
+
+      const vN = Math.sqrt(v / maxCell);
+      const alpha = Math.min(255, 35 + 180*vN + 120*f);
+
+      if(tf > 0){
+        fill(255, 255, 255, 140 + 115*tf);
+      } else {
+        fill(roygbiv(d, alpha));
+      }
+
+      rect(pad + d*cw, y0 + L*ch, Math.max(1, cw + 0.2), Math.max(1, ch + 0.2));
+    }
+  }
+}
+</script>
+</body>
+</html>
