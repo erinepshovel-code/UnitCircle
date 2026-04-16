@@ -35,3 +35,11 @@ Or run everything (dataset + Target A/C training + boundary-object run report) i
 python scripts/run_eml_experiment.py --x-max 1000000 --modulus 360 --log-grid-points 256 --window 31 --depth 3 --restarts 10 --steps 4000 --data-dir data --runs-dir runs
 ```
 
+
+
+Or use Make targets:
+
+```bash
+make run-eml-smoke   # quick validation run
+make run-eml         # full baseline run
+```
