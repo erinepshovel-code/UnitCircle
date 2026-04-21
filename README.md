@@ -11,6 +11,11 @@ structural persistence rather than smooth density, allowing recurring
 residue classes and special events (e.g. twin primes) to remain visible
 over time.
 
+The data pipeline also supports a Möbius-style doubled outer surface for
+Target C via `--surface-mode mobius`. In this mode, residue occupancy is
+tracked on `2 * modulus` slots using a parity twist, supporting
+interdependency framing references such as `The-Interdependency/pcea`.
+
 This codebase is an exploratory and communicative tool. It does not claim
 proofs or establish new theorems. Its purpose is to support intuition,
 pattern inspection, hypothesis formation, and explanation within a formal
@@ -33,6 +38,13 @@ Or run everything (dataset + Target A/C training + boundary-object run report) i
 
 ```bash
 python scripts/run_eml_experiment.py --x-max 1000000 --modulus 360 --log-grid-points 256 --window 31 --depth 3 --restarts 10 --steps 4000 --data-dir data --runs-dir runs
+```
+
+Möbius doubled-surface mode:
+
+```bash
+python scripts/build_prime_datasets.py --x-max 1000000 --modulus 360 --surface-mode mobius --log-grid-points 256 --window 31 --out-dir data
+python scripts/run_eml_experiment.py --x-max 1000000 --modulus 360 --surface-mode mobius --log-grid-points 256 --window 31 --depth 3 --restarts 10 --steps 4000 --data-dir data --runs-dir runs
 ```
 
 
