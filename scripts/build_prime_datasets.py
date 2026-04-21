@@ -96,24 +96,36 @@ def entropy(counts: list[int]) -> float:
     return h
 
 
-def target_c_rows(primes: list[int], x_samples: list[int], modulus: int) -> list[dict]:
-    occ = [0] * modulus
-    twin_hits = [0] * modulus
+def residue_slot(residue: int, prime: int, modulus: int, surface_mode: str) -> int:
+    """Map a residue class to a surface slot.
+
+    unit:   standard residue ring [0, modulus)
+    mobius: doubled surface ring [0, 2*modulus) with parity twist
+    """
+    if surface_mode == "mobius":
+        return residue + (modulus if (prime % 2) else 0)
+    return residue
+
+
+def target_c_rows(primes: list[int], x_samples: list[int], modulus: int, surface_mode: str = "unit") -> list[dict]:
+    ring_size = modulus * 2 if surface_mode == "mobius" else modulus
+    occ = [0] * ring_size
+    twin_hits = [0] * ring_size
     rows = []
     j = 0
     prev = None
     for i, x in enumerate(x_samples):
         while j < len(primes) and primes[j] <= x:
             p = primes[j]
-            d = p % modulus
+            d = residue_slot(p % modulus, p, modulus, surface_mode)
             occ[d] += 1
             if prev is not None and p - prev == 2:
-                twin_hits[prev % modulus] += 1
+                twin_hits[residue_slot(prev % modulus, prev, modulus, surface_mode)] += 1
                 twin_hits[d] += 1
             prev = p
             j += 1
 
-        active = [occ[k] for k in range(modulus) if math.gcd(k, modulus) == 1]
+        active = [occ[k] for k in range(ring_size) if math.gcd(k % modulus, modulus) == 1]
         if not active:
             continue
         mean = sum(active) / len(active)
@@ -139,6 +151,7 @@ def main() -> None:
     ap.add_argument("--modulus", type=int, default=360)
     ap.add_argument("--log-grid-points", type=int, default=256)
     ap.add_argument("--window", type=int, default=31)
+    ap.add_argument("--surface-mode", choices=["unit", "mobius"], default="unit")
     ap.add_argument("--out-dir", default="data")
     args = ap.parse_args()
 
@@ -150,7 +163,7 @@ def main() -> None:
 
     a_rows = target_a_rows(ps, xs)
     b_rows = target_b_rows(ps, args.window)
-    c_rows = target_c_rows(ps, xs, args.modulus)
+    c_rows = target_c_rows(ps, xs, args.modulus, args.surface_mode)
 
     write_csv(out / "target_a.csv", a_rows, ["x", "pi_x", "y", "split"])
     write_csv(out / "target_b.csv", b_rows, ["x", "gap_ma", "y", "split"])
@@ -161,6 +174,7 @@ def main() -> None:
         "modulus": args.modulus,
         "log_grid_points": args.log_grid_points,
         "window": args.window,
+        "surface_mode": args.surface_mode,
         "n_primes": len(ps),
         "rows": {"target_a": len(a_rows), "target_b": len(b_rows), "target_c": len(c_rows)},
     }
