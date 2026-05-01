@@ -1,5 +1,5 @@
 # ====================================================================
-# v0.9.0 — Carrier Widening (after depth-2 oracle)
+# v0.9.0 — Carrier Widening (after depth-2 oracle) — variant 1
 # ====================================================================
 #
 # Now that depth-2 oracle is GREEN, we widen carriers while keeping
