@@ -1,3 +1,4 @@
+.PHONY: run-eml-smoke run-eml summarize-eml clean-eml-artifacts
 .PHONY: run-eml-smoke run-eml clean-eml-artifacts
 
 run-eml-smoke:
@@ -23,6 +24,9 @@ run-eml:
 		--steps 4000 \
 		--data-dir data \
 		--runs-dir runs
+
+summarize-eml:
+	python scripts/summarize_eml_run.py
 
 clean-eml-artifacts:
 	python -c "import shutil,pathlib; [shutil.rmtree(p, ignore_errors=True) for p in ['data_smoke','runs_smoke','data','runs'] if pathlib.Path(p).exists()]; print('cleaned')"

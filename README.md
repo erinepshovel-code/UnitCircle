@@ -57,6 +57,13 @@ make run-eml         # full baseline run
 ```
 
 
+If you already ran the pipeline in Codespaces and only want a handoff summary from artifacts:
+
+```bash
+make summarize-eml
+```
+
+This writes `runs/continuation_handoff.md` with a metrics snapshot and the mandatory boundary object section.
 ## Gonal-Möbius prime-basin embedding (layered)
 
 A direct implementation of your layered construction lives in:

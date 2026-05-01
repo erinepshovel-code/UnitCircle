@@ -96,6 +96,9 @@ def entropy(counts: list[int]) -> float:
     return h
 
 
+def target_c_rows(primes: list[int], x_samples: list[int], modulus: int) -> list[dict]:
+    occ = [0] * modulus
+    twin_hits = [0] * modulus
 def residue_slot(residue: int, prime: int, modulus: int, surface_mode: str) -> int:
     """Map a residue class to a surface slot.
 
@@ -117,6 +120,10 @@ def target_c_rows(primes: list[int], x_samples: list[int], modulus: int, surface
     for i, x in enumerate(x_samples):
         while j < len(primes) and primes[j] <= x:
             p = primes[j]
+            d = p % modulus
+            occ[d] += 1
+            if prev is not None and p - prev == 2:
+                twin_hits[prev % modulus] += 1
             d = residue_slot(p % modulus, p, modulus, surface_mode)
             occ[d] += 1
             if prev is not None and p - prev == 2:
@@ -125,6 +132,7 @@ def target_c_rows(primes: list[int], x_samples: list[int], modulus: int, surface
             prev = p
             j += 1
 
+        active = [occ[k] for k in range(modulus) if math.gcd(k, modulus) == 1]
         active = [occ[k] for k in range(ring_size) if math.gcd(k % modulus, modulus) == 1]
         if not active:
             continue
@@ -163,6 +171,7 @@ def main() -> None:
 
     a_rows = target_a_rows(ps, xs)
     b_rows = target_b_rows(ps, args.window)
+    c_rows = target_c_rows(ps, xs, args.modulus)
     c_rows = target_c_rows(ps, xs, args.modulus, args.surface_mode)
 
     write_csv(out / "target_a.csv", a_rows, ["x", "pi_x", "y", "split"])
