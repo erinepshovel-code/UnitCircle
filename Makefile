@@ -1,4 +1,5 @@
 .PHONY: run-eml-smoke run-eml summarize-eml clean-eml-artifacts
+.PHONY: run-eml-smoke run-eml clean-eml-artifacts
 
 run-eml-smoke:
 	python scripts/run_eml_experiment.py \

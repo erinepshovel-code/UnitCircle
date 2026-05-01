@@ -34,6 +34,7 @@ def write_boundary_report(out_path: Path, args: argparse.Namespace, a: dict, c: 
 ## Run configuration
 - x_max: {args.x_max}
 - modulus: {args.modulus}
+- surface_mode: {args.surface_mode}
 - log_grid_points: {args.log_grid_points}
 - window: {args.window}
 - depth: {args.depth}
@@ -77,6 +78,7 @@ def main() -> None:
     ap.add_argument("--modulus", type=int, default=360)
     ap.add_argument("--log-grid-points", type=int, default=256)
     ap.add_argument("--window", type=int, default=31)
+    ap.add_argument("--surface-mode", choices=["unit", "mobius"], default="unit")
     ap.add_argument("--depth", type=int, default=3)
     ap.add_argument("--restarts", type=int, default=10)
     ap.add_argument("--steps", type=int, default=4000)
@@ -99,6 +101,8 @@ def main() -> None:
             str(args.log_grid_points),
             "--window",
             str(args.window),
+            "--surface-mode",
+            args.surface_mode,
             "--out-dir",
             args.data_dir,
         ]
