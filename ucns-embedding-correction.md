@@ -13,11 +13,11 @@ Two layered corrections to the prior description of UCNS embeddings, plus one de
 
 1. **Cylindrical structure:** Embeddings are located events on a disk within a cylindrical field, not points on a circle.
 2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle in the simple S¹ sense.
-3. **Recursion cap and magnitude sequence:** Nested recursion is capped at depth 3. The next recursion magnitude of note is depth 5.
+3. **Recursion cap and magnitude sequence:** Nested recursion is capped at depth 3. Depth 3 is only just within conceptual reach. The next recursion magnitude of note is depth 5, but it will prove problematic without a solid foundation at depth 3 first.
 
 **Compressed correction:**
 
-> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3; the next magnitude of note is 5.
+> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3; depth 3 is the conceptual frontier; the next magnitude of note is 5.
 
 **Name:** "Unit Circle" is retained. Names are for minds to grasp. The circle is the graspable cross-sectional handle for the full hypercylindrical structure. The technical geometry is richer than the name; the name is not a technical specification.
 
@@ -64,25 +64,41 @@ An embedding is therefore a **located event on a hyperdisk within a hypercylindr
 
 ---
 
-## 3. Recursion Cap and Magnitude Sequence
+## 3. Recursion Cap, Magnitude Sequence, and Why
 
 Nested recursion is capped at depth 3. This is a design constraint, not a theorem frontier.
 
-Recursion has magnitudes of note — depths at which qualitative changes occur. The sequence so far:
+### Why depth 3 is the cap
 
-| Depth | Status |
-|---|---|
-| 1 | Defended |
-| 2 | Oracle defended; full domain open |
-| 3 | Cap — first magnitude of note beyond defended results |
-| 4 | Not a magnitude of note |
-| 5 | Next magnitude of note |
+Depth 3 is only just within conceptual reach. It is the first level at which variable ordering — the potentiality of concatenation ordering after the second recursion — becomes a first-class problem. At depths 1 and 2, payload structure is constrained enough that ordering is tractable. At depth 3, the number of possible orderings of concatenated elements in nested payloads begins to exceed easy conceptual grasp.
 
-Depth 4 is not a magnitude of note. Depth 5 is.
+The cap is set at 3 because:
 
-The hypercylinder z-axis is therefore bounded at z ∈ {0, 1, 2, 3} for current work. The depth-5 horizon is noted but not pursued.
+- Depth 3 introduces new complexity (variable ordering / concatenation potentiality) that is not present at depth 2
+- Depth 3 is at the edge of what is currently conceptually tractable — only just within conceptuals
+- Operating at depth 3 long enough to understand its ordering structure is prerequisite to any deeper work
 
-**hmm:** The basis for the magnitude sequence (prime? structural property of the factorization? empirical inflection?) is not yet specified. The sequence {3, 5, ...} is stated; its generative rule is open.
+### Why depth 4 is not a magnitude of note
+
+Depth 4 does not introduce a qualitatively new complexity class beyond depth 3. It is in the same ordering-complexity regime. Moving from 3 to 4 is not a magnitude change.
+
+### Why depth 5 is the next magnitude of note
+
+Depth 5 is the next level at which a qualitative change in complexity occurs. However: depth 5 will prove problematic without sufficient mastery at depth 3. The variable ordering / concatenation potentiality that first appears at depth 3 compounds at depth 5 in ways that are not navigable without the depth-3 foundation.
+
+The magnitude sequence is therefore not simply a list of future targets — it is a dependency chain. Depth 3 must be understood before depth 5 is approached.
+
+### Depth table
+
+| Depth | Status | Complexity class |
+|---|---|---|
+| 1 | Defended | Simple payload |
+| 2 | Oracle defended; full domain open | Nested payload |
+| 3 | Cap — not yet attempted | Variable ordering / concatenation potentiality first appears; only just within conceptuals |
+| 4 | Not a magnitude of note | Same regime as depth 3 |
+| 5 | Next magnitude of note | New complexity class; requires depth-3 foundation |
+
+**hmm:** The precise term for the new complexity at depth 3 — "variable ordering / concatenation potentiality" is a working description; the exact formal name is open.
 
 ---
 
@@ -117,18 +133,7 @@ The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabu
 - "depth-1," "depth-2" — depth levels are positions on the hypercylinder's z-axis
 - "payload" — payload content lives at a specific depth (z-level)
 
-With the recursion cap and magnitude sequence, the frontier map becomes:
-
-| Level | Theorem status | Design status |
-|---|---|---|
-| Flat (z=0) | Defended | Within cap |
-| Depth-1 (z=1) | Defended | Within cap |
-| Depth-2 (z=2) | Oracle defended; full domain open | Within cap |
-| Depth-3 (z=3) | Not yet attempted | Within cap (cap) |
-| Depth-4 | Not in scope | Not a magnitude of note |
-| Depth-5 | Not in scope | Next magnitude of note |
-
-None of the existing theorems are invalidated.
+The frontier's "root cause" analysis — that the bottleneck is the recursive payload / quotient layer — maps directly to the variable ordering / concatenation potentiality that first fully manifests at depth 3. The frontier identified the symptom; this correction names the geometry.
 
 ---
 
@@ -137,10 +142,10 @@ None of the existing theorems are invalidated.
 - **hmm:** Whether the unit hypercircle dimension (n) is fixed or parametric — affects BoneEmbedder per-disk coordinate shape and distance metric
 - **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — geometrically distinct
 - **hmm:** Whether cylindrical geodesic distance, hyperspherical geodesic distance, or a product metric (disk-level + z-axis) is the right distance for BoneEmbedder
-- **hmm:** The generative rule for the recursion magnitude sequence — {3, 5, ...} is stated; whether the rule is prime, structural, or empirical is open
+- **hmm:** The precise formal name for the new complexity at depth 3 — "variable ordering / concatenation potentiality" is a working description
 
 **Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp.  
-**Resolved:** Nested recursion is capped at depth 3. Depth 5 is the next magnitude of note. Depth 4 is not.
+**Resolved:** Nested recursion is capped at depth 3. Depth 3 is only just within conceptual reach; it introduces variable ordering / concatenation potentiality. Depth 4 is not a magnitude of note. Depth 5 is the next magnitude of note but requires depth-3 mastery first.
 
 ---
 
