@@ -12,11 +12,13 @@
 Two layered corrections to the prior description of UCNS embeddings:
 
 1. **Cylindrical structure:** Embeddings are located events on a disk within a cylindrical field, not points on a circle.
-2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle. The base unit is the unit hypercircle.
+2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle in the simple S¹ sense.
 
 **Compressed correction:**
 
 > UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle.
+
+**Name:** "Unit Circle" is retained. Names are for minds to grasp. The circle is the graspable cross-sectional handle for the full hypercylindrical structure. The technical geometry is richer than the name; the name is not a technical specification.
 
 ---
 
@@ -26,7 +28,7 @@ The atomic geometric element of UCNS is the unit hypercircle.
 
 A unit hypercircle is the n-dimensional generalization of the unit circle. Where a unit circle is a 1-sphere (S¹) in R², a unit hypercircle is an n-sphere (Sⁿ) in Rⁿ⁺¹. It is parametrized by (n-1) angular degrees of freedom, not one.
 
-The prior description used "unit circle" to name the cross-sectional geometry of each disk. That was a simplification. The correct name is unit hypercircle.
+The prior description used "unit circle" to name the cross-sectional geometry of each disk. That was a simplification. The correct technical description is unit hypercircle. The name "Unit Circle" is retained regardless, as a graspable handle.
 
 Consequences:
 
@@ -57,9 +59,7 @@ The hypercylinder gives persistence across disks:
 - phase memory
 - traversal across disks
 
-An embedding is therefore a **located event on a hyperdisk within a hypercylindrical field** — not a point on a circle or even a point on a sphere.
-
-The unit hypercircle was always the base unit. The prior shorthand "unit circle" named its lowest-dimensional projection.
+An embedding is therefore a **located event on a hyperdisk within a hypercylindrical field** — not a point on a circle.
 
 ---
 
@@ -106,22 +106,13 @@ None of the existing theorems are invalidated. They gain geometric interpretatio
 
 ---
 
-## 5. Open Question: Naming
+## 5. hmm-Tagged Items
 
-If the base unit is the unit hypercircle and the full embedding space is a hypercylinder, then "Unit Circle Number System" is a doubly partial name: it names neither the correct base geometry (hypercircle, not circle) nor the full topology (hypercylinder, not circle).
-
-Candidates:
-
-- **Unit Hypercircle Number System** — names the base unit accurately; the traversal axis is implicit
-- **Unit Hypercylinder Number System** — names the full embedding space; the hypercircle base is implicit
-- **UCNS retained** — U=Unit, C=Cylinder or C=Circle-as-cross-section shorthand, N=Number, S=System; the acronym survives under reinterpretation
-
-**hmm items:**
-
-- **hmm:** Whether the hypercircle dimension (n) is fixed for UCNS or parametric — a fixed n would constrain the BoneEmbedder coordinate shape; a parametric n would make the protocol shape depend on configuration
-- **hmm:** Whether the non-scalar zero-origin contact event is a point on the unit hypercircle (on the surface of the n-sphere) or at the center of the hyperdisk (the origin of the ambient space) — the two are geometrically distinct
+- **hmm:** Whether the unit hypercircle dimension (n) is fixed for UCNS or parametric — a fixed n would constrain the BoneEmbedder coordinate shape; a parametric n would make the protocol shape depend on configuration
+- **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — the two are geometrically distinct
 - **hmm:** Whether cylindrical geodesic distance, hyperspherical geodesic distance, or a product metric (disk-level + z-axis) is the right distance for BoneEmbedder
-- **hmm:** Whether "unit circle" is preserved as the name for the lowest-dimensional cross-section or deprecated entirely in favor of unit hypercircle
+
+**Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp; the circle is the graspable cross-sectional handle. Technical geometry is richer than the name; the name is not a technical specification of the full topology.
 
 ---
 
