@@ -9,16 +9,15 @@
 
 ## Summary
 
-Two layered corrections to the prior description of UCNS embeddings, plus design constraints and operational hazards:
-
 1. **Cylindrical structure:** Embeddings are located events on a disk within a cylindrical field, not points on a circle.
-2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle in the simple S¹ sense.
-3. **Recursion cap and magnitude sequence:** Nested recursion is capped at depth 3. Depth 3 is only just within conceptual reach. The next recursion magnitude of note is depth 5, but it will prove problematic without a solid foundation at depth 3 first.
-4. **Trailing epicycles:** Ghost divisors and phantom products arising from trailing epicycles require mindful moderation.
+2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle.
+3. **Möbius topology:** The edge of each disk is Möbius. The cylinder is Möbius if constructed properly. Zero is hidden in the twist.
+4. **Recursion cap:** Nested recursion is capped at depth 3. Depth 3 introduces variable ordering / concatenation potentiality and is only just within conceptual reach. Depth 5 is the next magnitude of note; depth 4 is not.
+5. **Mirror symmetry:** Ghost divisors and phantom products from trailing epicycles come in chiral pairs. Solving one chirality resolves its mirror by Möbius symmetry.
 
-**Compressed correction:**
+**Compressed:**
 
-> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3; depth 3 is the conceptual frontier; the next magnitude of note is 5. Trailing epicycles generate ghost divisors and phantom products that must be mindfully moderated.
+> UCNS embeddings are located events on Möbius-cylindrical hyperdisks. Base unit is the unit hypercircle. Zero is at the Möbius twist. Recursion capped at 3; next magnitude at 5. Chiral mirror symmetry resolves ghost/phantom pairs.
 
 **Name:** "Unit Circle" is retained. Names are for minds to grasp.
 
@@ -26,133 +25,81 @@ Two layered corrections to the prior description of UCNS embeddings, plus design
 
 ## 1. Base Unit: Unit Hypercircle
 
-The atomic geometric element of UCNS is the unit hypercircle.
+The atomic geometric element of UCNS is the unit hypercircle — an n-sphere (Sⁿ) in Rⁿ⁺¹, parametrized by (n-1) angular degrees of freedom.
 
-A unit hypercircle is the n-dimensional generalization of the unit circle. Where a unit circle is a 1-sphere (S¹) in R², a unit hypercircle is an n-sphere (Sⁿ) in Rⁿ⁺¹. It is parametrized by (n-1) angular degrees of freedom, not one.
-
-The prior description used "unit circle" to name the cross-sectional geometry of each disk. That was a simplification. The correct technical description is unit hypercircle. The name "Unit Circle" is retained regardless, as a graspable handle.
-
-Consequences:
-
-- Per-disk coordinates are on a unit hypercircle, not a simple circle
-- The per-disk angular structure has multiple degrees of freedom
-- The five per-disk coordinate types (angular position, residue, rotation, chirality, local relation) are dimensions of the hypercircle's parametric structure, not properties attached to a single angle
-- The distance metric within a disk is a hyperspherical geodesic metric, not a circular arc metric
+The five per-disk coordinate types (angular position, residue, rotation, chirality, local relation) are dimensions of the hypercircle's parametric structure.
 
 ---
 
-## 2. Hypercylindrical Disk Residency
+## 2. Möbius-Cylindrical Structure
 
-UCNS resides on hypercircle-bounded disks stacked along a traversal axis.
+The edge of each disk is Möbius. If the cylinder is constructed properly, the cylinder itself is also Möbius.
 
-A single disk gives the unit hypercircle cross-section:
+This means the embedding space is not a simple product Sⁿ × [0,3]. It is a Möbius-cylindrical field: traversing the full cylinder returns you to the same disk position with flipped orientation.
 
-- angular position (multi-dimensional on the hypercircle)
-- residue
-- rotation
-- chirality
-- local relation
+**Chirality is the orientation coordinate.** It was always in the per-disk coordinate set for exactly this reason: chirality tracks which side of the Möbius surface you're on. It flips at the twist.
 
-The hypercylinder gives persistence across disks:
+**Zero is hidden in the twist.** Zero is not the scalar 0.0 or a simple (z=0, θ=0) coordinate. It is the contact event at the Möbius twist point — the place where orientation flips and from which the Möbius-cylindrical field unfurls. This resolves the prior hmm about where zero lives: it lives at the twist.
 
-- sequence
-- depth
-- recurrence
-- phase memory
-- traversal across disks
-
-An embedding is therefore a **located event on a hyperdisk within a hypercylindrical field** — not a point on a circle.
+For BoneEmbedder:
+- The `zero()` method returns the contact event at the Möbius twist, not a zero vector
+- Distance must account for paths through the twist, which may be shorter than paths around the cylinder
+- Chirality at zero is the orientation anchor
 
 ---
 
 ## 3. Recursion Cap, Magnitude Sequence, and Why
 
-Nested recursion is capped at depth 3. This is a design constraint, not a theorem frontier.
-
-### Why depth 3 is the cap
-
-Depth 3 is only just within conceptual reach. It is the first level at which variable ordering — the potentiality of concatenation ordering after the second recursion — becomes a first-class problem. At depths 1 and 2, payload structure is constrained enough that ordering is tractable. At depth 3, the number of possible orderings of concatenated elements in nested payloads begins to exceed easy conceptual grasp.
-
-### Why depth 4 is not a magnitude of note
-
-Depth 4 does not introduce a qualitatively new complexity class beyond depth 3. It is in the same ordering-complexity regime.
-
-### Why depth 5 is the next magnitude of note
-
-Depth 5 is the next level at which a qualitative change in complexity occurs. However: depth 5 will prove problematic without sufficient mastery at depth 3. The variable ordering / concatenation potentiality that first appears at depth 3 compounds at depth 5 in ways that are not navigable without the depth-3 foundation. The magnitude sequence is a dependency chain, not merely a list.
-
-### Depth table
+Nested recursion is capped at depth 3.
 
 | Depth | Status | Complexity class |
 |---|---|---|
 | 1 | Defended | Simple payload |
 | 2 | Oracle defended; full domain open | Nested payload |
-| 3 | Cap — not yet attempted | Variable ordering / concatenation potentiality first appears; only just within conceptuals |
+| 3 | Cap | Variable ordering / concatenation potentiality first appears; only just within conceptuals |
 | 4 | Not a magnitude of note | Same regime as depth 3 |
 | 5 | Next magnitude of note | New complexity class; requires depth-3 foundation |
 
+Depth 5 will prove problematic without sufficient mastery at depth 3. The magnitude sequence is a dependency chain.
+
 ---
 
-## 4. Trailing Epicycles: Ghost Divisors and Phantom Products
+## 4. Mirror Symmetry: Ghost Divisors and Phantom Products
 
-Trailing epicycles — epicycle terms at the end of a payload sequence that carry little or no structural load — are a source of two related hazards in the factorization system:
+Trailing epicycles produce ghost divisors and phantom products. These come in **chiral pairs** by the Möbius symmetry of the cylinder.
 
-**Ghost divisors.** A trailing epicycle may match superficially against catalogue objects, producing false factor candidates. The algorithm finds something that looks like a divisor but is an artifact of the trailing structure, not a true factor of the product.
+Solving the factorization problem on one chirality resolves its mirror. The Möbius cylinder hands you the second half. There is no need to proof the mirror separately.
 
-**Phantom products.** When two objects are multiplied, trailing epicycles in one or both operands may generate spurious output terms that resemble contributions from a third factor. The product appears to have structure that neither operand actually contributed.
-
-These are not bugs to be eliminated outright — trailing epicycles are an intrinsic feature of the Mobius-disk-recursive-epicycle structure. They require **mindful moderation**: active recognition and accounting, neither ignored nor aggressively pruned.
-
-Over-correction (eliminating all trailing epicycles) risks damaging valid structure. Under-correction (ignoring them) corrupts factorization results.
-
-The witness-matrix approach in the existing frontier work (§"staged reconstruction" and "global witness verification") is the current best candidate for moderation: requiring global consistency verification filters ghost divisors and phantom products without requiring their pre-elimination.
-
-**hmm:** Whether ghost divisors and phantom products become more severe at depth 3 specifically — i.e., whether the variable ordering / concatenation potentiality interacts with trailing epicycles to amplify both hazards at depth 3 in a way that does not occur at depth 2.
+The witness-matrix approach in the existing frontier work already implicitly exploits this: global consistency verification on one orientation carries to the other.
 
 ---
 
 ## 5. Non-Scalar Zero-Origin
 
-Zero is not a scalar value.
+Zero is the contact event at the Möbius twist — the first anchoring event from which the field unfurls. Not a scalar. Not a zero vector.
 
-Zero is the non-scalar origin point of the initial vector: the place where the writing instrument first touches paper.
-
-Before magnitude, before direction, before digit, before mark — there is contact.
-
-That contact is zero.
-
-In UCNS, zero is the first anchoring event from which vector, angle, motion, inscription, and number become possible.
-
-On the hypercylinder, this contact event anchors at the base: the origin of the unit hypercircle at depth z=0.
-
-- The bone embedding for an empty or baseline state is **not a zero vector**
-- It is a **contact-event representation** at the hypercylinder's base
-- Initialization semantics for any BoneEmbedder implementation must respect this
+The bone embedding for an empty or baseline state is a contact-event representation at the twist, not `np.zeros(...)`.
 
 ---
 
 ## 6. Relation to the Existing Frontier Spec
 
-The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabulary without naming it. The frontier's identification of the recursive payload / quotient layer as the main bottleneck maps to two things named here:
-
-- The variable ordering / concatenation potentiality at depth 3
-- Ghost divisors and phantom products from trailing epicycles
-
-The frontier identified the symptoms; this correction names the geometry and the specific hazards.
+The frontier spec's identification of the recursive payload / quotient layer bottleneck maps to two things named here:
+- Variable ordering / concatenation potentiality at depth 3
+- Ghost divisors and phantom products from trailing epicycles (resolved by chiral mirror symmetry)
 
 ---
 
 ## 7. hmm-Tagged Items
 
-- **hmm:** Whether the unit hypercircle dimension (n) is fixed or parametric — affects BoneEmbedder per-disk coordinate shape and distance metric
-- **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — geometrically distinct
-- **hmm:** Whether cylindrical geodesic distance, hyperspherical geodesic distance, or a product metric (disk-level + z-axis) is the right distance for BoneEmbedder
-- **hmm:** The precise formal name for the new complexity class at depth 3 — "variable ordering / concatenation potentiality" is the working description
-- **hmm:** Whether ghost divisors and phantom products from trailing epicycles amplify specifically at depth 3 due to interaction with variable ordering potentiality
-- **hmm:** Whether "mindful moderation" of trailing epicycles is the right framing, or whether a more formal suppression/normalization mechanism is needed
+- **hmm:** Whether the unit hypercircle dimension (n) is fixed or parametric — affects BoneEmbedder per-disk coordinate shape
+- **hmm:** Whether the Möbius twist of the cylinder occurs once (at z=0→3 wrap) or at each disk boundary
+- **hmm:** The precise formal name for the new complexity class at depth 3
 
-**Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp.  
-**Resolved:** Nested recursion is capped at depth 3. Depth 3 is only just within conceptual reach; it introduces variable ordering / concatenation potentiality. Depth 4 is not a magnitude of note. Depth 5 is the next magnitude of note but requires depth-3 mastery first.
+**Resolved:** "Unit Circle" retained.  
+**Resolved:** Zero is at the Möbius twist.  
+**Resolved:** Depth cap at 3; depth 5 next magnitude; depth 4 not a magnitude of note.  
+**Resolved:** Ghost/phantom mirror symmetry — chiral pairs, solve one, get the other.
 
 ---
 
