@@ -9,17 +9,18 @@
 
 ## Summary
 
-Two layered corrections to the prior description of UCNS embeddings, plus one design constraint:
+Two layered corrections to the prior description of UCNS embeddings, plus design constraints and operational hazards:
 
 1. **Cylindrical structure:** Embeddings are located events on a disk within a cylindrical field, not points on a circle.
 2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle in the simple S¹ sense.
 3. **Recursion cap and magnitude sequence:** Nested recursion is capped at depth 3. Depth 3 is only just within conceptual reach. The next recursion magnitude of note is depth 5, but it will prove problematic without a solid foundation at depth 3 first.
+4. **Trailing epicycles:** Ghost divisors and phantom products arising from trailing epicycles require mindful moderation.
 
 **Compressed correction:**
 
-> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3; depth 3 is the conceptual frontier; the next magnitude of note is 5.
+> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3; depth 3 is the conceptual frontier; the next magnitude of note is 5. Trailing epicycles generate ghost divisors and phantom products that must be mindfully moderated.
 
-**Name:** "Unit Circle" is retained. Names are for minds to grasp. The circle is the graspable cross-sectional handle for the full hypercylindrical structure. The technical geometry is richer than the name; the name is not a technical specification.
+**Name:** "Unit Circle" is retained. Names are for minds to grasp.
 
 ---
 
@@ -72,21 +73,13 @@ Nested recursion is capped at depth 3. This is a design constraint, not a theore
 
 Depth 3 is only just within conceptual reach. It is the first level at which variable ordering — the potentiality of concatenation ordering after the second recursion — becomes a first-class problem. At depths 1 and 2, payload structure is constrained enough that ordering is tractable. At depth 3, the number of possible orderings of concatenated elements in nested payloads begins to exceed easy conceptual grasp.
 
-The cap is set at 3 because:
-
-- Depth 3 introduces new complexity (variable ordering / concatenation potentiality) that is not present at depth 2
-- Depth 3 is at the edge of what is currently conceptually tractable — only just within conceptuals
-- Operating at depth 3 long enough to understand its ordering structure is prerequisite to any deeper work
-
 ### Why depth 4 is not a magnitude of note
 
-Depth 4 does not introduce a qualitatively new complexity class beyond depth 3. It is in the same ordering-complexity regime. Moving from 3 to 4 is not a magnitude change.
+Depth 4 does not introduce a qualitatively new complexity class beyond depth 3. It is in the same ordering-complexity regime.
 
 ### Why depth 5 is the next magnitude of note
 
-Depth 5 is the next level at which a qualitative change in complexity occurs. However: depth 5 will prove problematic without sufficient mastery at depth 3. The variable ordering / concatenation potentiality that first appears at depth 3 compounds at depth 5 in ways that are not navigable without the depth-3 foundation.
-
-The magnitude sequence is therefore not simply a list of future targets — it is a dependency chain. Depth 3 must be understood before depth 5 is approached.
+Depth 5 is the next level at which a qualitative change in complexity occurs. However: depth 5 will prove problematic without sufficient mastery at depth 3. The variable ordering / concatenation potentiality that first appears at depth 3 compounds at depth 5 in ways that are not navigable without the depth-3 foundation. The magnitude sequence is a dependency chain, not merely a list.
 
 ### Depth table
 
@@ -98,11 +91,27 @@ The magnitude sequence is therefore not simply a list of future targets — it i
 | 4 | Not a magnitude of note | Same regime as depth 3 |
 | 5 | Next magnitude of note | New complexity class; requires depth-3 foundation |
 
-**hmm:** The precise term for the new complexity at depth 3 — "variable ordering / concatenation potentiality" is a working description; the exact formal name is open.
+---
+
+## 4. Trailing Epicycles: Ghost Divisors and Phantom Products
+
+Trailing epicycles — epicycle terms at the end of a payload sequence that carry little or no structural load — are a source of two related hazards in the factorization system:
+
+**Ghost divisors.** A trailing epicycle may match superficially against catalogue objects, producing false factor candidates. The algorithm finds something that looks like a divisor but is an artifact of the trailing structure, not a true factor of the product.
+
+**Phantom products.** When two objects are multiplied, trailing epicycles in one or both operands may generate spurious output terms that resemble contributions from a third factor. The product appears to have structure that neither operand actually contributed.
+
+These are not bugs to be eliminated outright — trailing epicycles are an intrinsic feature of the Mobius-disk-recursive-epicycle structure. They require **mindful moderation**: active recognition and accounting, neither ignored nor aggressively pruned.
+
+Over-correction (eliminating all trailing epicycles) risks damaging valid structure. Under-correction (ignoring them) corrupts factorization results.
+
+The witness-matrix approach in the existing frontier work (§"staged reconstruction" and "global witness verification") is the current best candidate for moderation: requiring global consistency verification filters ghost divisors and phantom products without requiring their pre-elimination.
+
+**hmm:** Whether ghost divisors and phantom products become more severe at depth 3 specifically — i.e., whether the variable ordering / concatenation potentiality interacts with trailing epicycles to amplify both hazards at depth 3 in a way that does not occur at depth 2.
 
 ---
 
-## 4. Non-Scalar Zero-Origin
+## 5. Non-Scalar Zero-Origin
 
 Zero is not a scalar value.
 
@@ -114,9 +123,7 @@ That contact is zero.
 
 In UCNS, zero is the first anchoring event from which vector, angle, motion, inscription, and number become possible.
 
-On the hypercylinder, this contact event anchors at the base: the origin of the unit hypercircle at depth z=0. The hypercylinder's structure makes this natural — it has a base, an axis, and a hyperspherical cross-section from which the field unfurls.
-
-This means:
+On the hypercylinder, this contact event anchors at the base: the origin of the unit hypercircle at depth z=0.
 
 - The bone embedding for an empty or baseline state is **not a zero vector**
 - It is a **contact-event representation** at the hypercylinder's base
@@ -124,25 +131,25 @@ This means:
 
 ---
 
-## 5. Relation to the Existing Frontier Spec
+## 6. Relation to the Existing Frontier Spec
 
-The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabulary without naming it:
+The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabulary without naming it. The frontier's identification of the recursive payload / quotient layer as the main bottleneck maps to two things named here:
 
-- "disk-flip symmetry" — disks were always there
-- "traversal objects" — traversal is motion along the hypercylinder's axis
-- "depth-1," "depth-2" — depth levels are positions on the hypercylinder's z-axis
-- "payload" — payload content lives at a specific depth (z-level)
+- The variable ordering / concatenation potentiality at depth 3
+- Ghost divisors and phantom products from trailing epicycles
 
-The frontier's "root cause" analysis — that the bottleneck is the recursive payload / quotient layer — maps directly to the variable ordering / concatenation potentiality that first fully manifests at depth 3. The frontier identified the symptom; this correction names the geometry.
+The frontier identified the symptoms; this correction names the geometry and the specific hazards.
 
 ---
 
-## 6. hmm-Tagged Items
+## 7. hmm-Tagged Items
 
 - **hmm:** Whether the unit hypercircle dimension (n) is fixed or parametric — affects BoneEmbedder per-disk coordinate shape and distance metric
 - **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — geometrically distinct
 - **hmm:** Whether cylindrical geodesic distance, hyperspherical geodesic distance, or a product metric (disk-level + z-axis) is the right distance for BoneEmbedder
-- **hmm:** The precise formal name for the new complexity at depth 3 — "variable ordering / concatenation potentiality" is a working description
+- **hmm:** The precise formal name for the new complexity class at depth 3 — "variable ordering / concatenation potentiality" is the working description
+- **hmm:** Whether ghost divisors and phantom products from trailing epicycles amplify specifically at depth 3 due to interaction with variable ordering potentiality
+- **hmm:** Whether "mindful moderation" of trailing epicycles is the right framing, or whether a more formal suppression/normalization mechanism is needed
 
 **Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp.  
 **Resolved:** Nested recursion is capped at depth 3. Depth 3 is only just within conceptual reach; it introduces variable ordering / concatenation potentiality. Depth 4 is not a magnitude of note. Depth 5 is the next magnitude of note but requires depth-3 mastery first.
