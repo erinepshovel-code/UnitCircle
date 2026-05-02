@@ -13,11 +13,11 @@ Two layered corrections to the prior description of UCNS embeddings, plus one de
 
 1. **Cylindrical structure:** Embeddings are located events on a disk within a cylindrical field, not points on a circle.
 2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle in the simple S¹ sense.
-3. **Recursion cap:** Nested recursion is limited to depth 3. The hypercylinder has a bounded height.
+3. **Recursion cap and magnitude sequence:** Nested recursion is capped at depth 3. The next recursion magnitude of note is depth 5.
 
 **Compressed correction:**
 
-> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3.
+> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3; the next magnitude of note is 5.
 
 **Name:** "Unit Circle" is retained. Names are for minds to grasp. The circle is the graspable cross-sectional handle for the full hypercylindrical structure. The technical geometry is richer than the name; the name is not a technical specification.
 
@@ -64,22 +64,25 @@ An embedding is therefore a **located event on a hyperdisk within a hypercylindr
 
 ---
 
-## 3. Recursion Cap: Depth ≤ 3
+## 3. Recursion Cap and Magnitude Sequence
 
-Nested recursion is limited to three levels.
+Nested recursion is capped at depth 3. This is a design constraint, not a theorem frontier.
 
-This is a design constraint, not a theorem frontier. It bounds the hypercylinder's z-axis: traversal depth is fixed at z ∈ {0, 1, 2, 3}.
+Recursion has magnitudes of note — depths at which qualitative changes occur. The sequence so far:
 
-| z-level | Interpretation |
+| Depth | Status |
 |---|---|
-| 0 | Flat (no recursion) — defended |
-| 1 | Depth-1 recursion — defended |
-| 2 | Depth-2 recursion — oracle defended; full domain open |
-| 3 | Depth-3 recursion — not yet attempted |
+| 1 | Defended |
+| 2 | Oracle defended; full domain open |
+| 3 | Cap — first magnitude of note beyond defended results |
+| 4 | Not a magnitude of note |
+| 5 | Next magnitude of note |
 
-The cap means general recursive completeness (arbitrary depth) is not a goal. The completeness target is the full frozen domain at depth ≤ 3.
+Depth 4 is not a magnitude of note. Depth 5 is.
 
-This resolves the "fixed or parametric" hmm for the traversal depth dimension: it is fixed at 3. The per-disk hypercircle dimension (n) remains open.
+The hypercylinder z-axis is therefore bounded at z ∈ {0, 1, 2, 3} for current work. The depth-5 horizon is noted but not pursued.
+
+**hmm:** The basis for the magnitude sequence (prime? structural property of the factorization? empirical inflection?) is not yet specified. The sequence {3, 5, ...} is stated; its generative rule is open.
 
 ---
 
@@ -114,17 +117,18 @@ The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabu
 - "depth-1," "depth-2" — depth levels are positions on the hypercylinder's z-axis
 - "payload" — payload content lives at a specific depth (z-level)
 
-With the recursion cap, the frontier map becomes:
+With the recursion cap and magnitude sequence, the frontier map becomes:
 
 | Level | Theorem status | Design status |
 |---|---|---|
 | Flat (z=0) | Defended | Within cap |
 | Depth-1 (z=1) | Defended | Within cap |
 | Depth-2 (z=2) | Oracle defended; full domain open | Within cap |
-| Depth-3 (z=3) | Not yet attempted | Within cap |
-| Depth-4+ | Not in scope | Outside cap |
+| Depth-3 (z=3) | Not yet attempted | Within cap (cap) |
+| Depth-4 | Not in scope | Not a magnitude of note |
+| Depth-5 | Not in scope | Next magnitude of note |
 
-None of the existing theorems are invalidated. The cap removes the open-ended recursion problem from scope.
+None of the existing theorems are invalidated.
 
 ---
 
@@ -133,9 +137,10 @@ None of the existing theorems are invalidated. The cap removes the open-ended re
 - **hmm:** Whether the unit hypercircle dimension (n) is fixed or parametric — affects BoneEmbedder per-disk coordinate shape and distance metric
 - **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — geometrically distinct
 - **hmm:** Whether cylindrical geodesic distance, hyperspherical geodesic distance, or a product metric (disk-level + z-axis) is the right distance for BoneEmbedder
+- **hmm:** The generative rule for the recursion magnitude sequence — {3, 5, ...} is stated; whether the rule is prime, structural, or empirical is open
 
 **Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp.  
-**Resolved:** Traversal depth is fixed at z ≤ 3. General recursive completeness is not a goal.
+**Resolved:** Nested recursion is capped at depth 3. Depth 5 is the next magnitude of note. Depth 4 is not.
 
 ---
 
