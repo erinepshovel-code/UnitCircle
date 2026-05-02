@@ -9,14 +9,15 @@
 
 ## Summary
 
-Two layered corrections to the prior description of UCNS embeddings:
+Two layered corrections to the prior description of UCNS embeddings, plus one design constraint:
 
 1. **Cylindrical structure:** Embeddings are located events on a disk within a cylindrical field, not points on a circle.
 2. **Hypercircle base unit:** The cross-section of each disk is a unit hypercircle, not a unit circle in the simple S¹ sense.
+3. **Recursion cap:** Nested recursion is limited to depth 3. The hypercylinder has a bounded height.
 
 **Compressed correction:**
 
-> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle.
+> UCNS embeddings require hypercylindrical disk residency plus a non-scalar zero-origin contact event. The base unit is the unit hypercircle. Nested recursion is capped at 3.
 
 **Name:** "Unit Circle" is retained. Names are for minds to grasp. The circle is the graspable cross-sectional handle for the full hypercylindrical structure. The technical geometry is richer than the name; the name is not a technical specification.
 
@@ -63,7 +64,26 @@ An embedding is therefore a **located event on a hyperdisk within a hypercylindr
 
 ---
 
-## 3. Non-Scalar Zero-Origin
+## 3. Recursion Cap: Depth ≤ 3
+
+Nested recursion is limited to three levels.
+
+This is a design constraint, not a theorem frontier. It bounds the hypercylinder's z-axis: traversal depth is fixed at z ∈ {0, 1, 2, 3}.
+
+| z-level | Interpretation |
+|---|---|
+| 0 | Flat (no recursion) — defended |
+| 1 | Depth-1 recursion — defended |
+| 2 | Depth-2 recursion — oracle defended; full domain open |
+| 3 | Depth-3 recursion — not yet attempted |
+
+The cap means general recursive completeness (arbitrary depth) is not a goal. The completeness target is the full frozen domain at depth ≤ 3.
+
+This resolves the "fixed or parametric" hmm for the traversal depth dimension: it is fixed at 3. The per-disk hypercircle dimension (n) remains open.
+
+---
+
+## 4. Non-Scalar Zero-Origin
 
 Zero is not a scalar value.
 
@@ -85,7 +105,7 @@ This means:
 
 ---
 
-## 4. Relation to the Existing Frontier Spec
+## 5. Relation to the Existing Frontier Spec
 
 The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabulary without naming it:
 
@@ -94,25 +114,28 @@ The frontier spec (`ucns-spec-frontier-v090.md`) already uses cylindrical vocabu
 - "depth-1," "depth-2" — depth levels are positions on the hypercylinder's z-axis
 - "payload" — payload content lives at a specific depth (z-level)
 
-The defended flat theorem (depth-0), depth-1 restricted completeness, and depth-2 oracle each correspond to traversal extent on the hypercylinder:
+With the recursion cap, the frontier map becomes:
 
-| Theorem | Hypercylinder interpretation |
-|---|---|
-| Flat kernel | Single hyperdisk (z=0 slice) |
-| Depth-1 restricted | One traversal step up the hypercylinder |
-| Depth-2 oracle | Two traversal steps, oracle class only |
+| Level | Theorem status | Design status |
+|---|---|---|
+| Flat (z=0) | Defended | Within cap |
+| Depth-1 (z=1) | Defended | Within cap |
+| Depth-2 (z=2) | Oracle defended; full domain open | Within cap |
+| Depth-3 (z=3) | Not yet attempted | Within cap |
+| Depth-4+ | Not in scope | Outside cap |
 
-None of the existing theorems are invalidated. They gain geometric interpretation.
+None of the existing theorems are invalidated. The cap removes the open-ended recursion problem from scope.
 
 ---
 
-## 5. hmm-Tagged Items
+## 6. hmm-Tagged Items
 
-- **hmm:** Whether the unit hypercircle dimension (n) is fixed for UCNS or parametric — a fixed n would constrain the BoneEmbedder coordinate shape; a parametric n would make the protocol shape depend on configuration
-- **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — the two are geometrically distinct
+- **hmm:** Whether the unit hypercircle dimension (n) is fixed or parametric — affects BoneEmbedder per-disk coordinate shape and distance metric
+- **hmm:** Whether the non-scalar zero-origin contact event is a point on the surface of the unit hypercircle or at the center of the hyperdisk — geometrically distinct
 - **hmm:** Whether cylindrical geodesic distance, hyperspherical geodesic distance, or a product metric (disk-level + z-axis) is the right distance for BoneEmbedder
 
-**Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp; the circle is the graspable cross-sectional handle. Technical geometry is richer than the name; the name is not a technical specification of the full topology.
+**Resolved:** The system name "Unit Circle" is retained. Names are for minds to grasp.  
+**Resolved:** Traversal depth is fixed at z ≤ 3. General recursive completeness is not a goal.
 
 ---
 
