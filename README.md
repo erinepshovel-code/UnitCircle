@@ -44,7 +44,7 @@ Möbius doubled-surface mode:
 
 ```bash
 python scripts/build_prime_datasets.py --x-max 1000000 --modulus 360 --surface-mode mobius --log-grid-points 256 --window 31 --out-dir data
-python scripts/run_eml_experiment.py --x-max 1000000 --modulus 360 --surface-mode mobius --log-grid-points 256 --window 31 --depth 3 --restarts 10 --steps 4000 --data-dir data --runs-dir runs
+python scripts/run_eml_experiment.py --x-max 1000000 --surface-mode mobius --log-grid-points 256 --window 31 --depth 3 --restarts 10 --steps 4000 --data-dir data --runs-dir runs
 ```
 
 
@@ -112,3 +112,20 @@ Run contiguous flat factor search:
 ```bash
 python scripts/ucns_flat_kernel.py factor-search --n-dec 12 --theta-plus "0,1/4,1/2,1/3,7/12,5/6" --face-plus "1,0,1,0,1,0"
 ```
+
+## Digit-stride parser experiment
+
+This repo includes a base-parametric parser for comparing Fibonacci-only,
+prime-only, and Fibonacci-prime bridge rows in the fractional digits of constants:
+
+```bash
+python scripts/digit_stride_experiment.py --self-check
+python scripts/digit_stride_experiment.py --out-dir data/digit_stride
+```
+
+The experiment defines `W_{n,b}(x)` as the digits landed at positions
+`n, 2n, ..., n^2` after the radix point in base `b`. It reports rows separately
+as `fib_only`, `prime_only`, or `bridge`, so shared Fibonacci-prime rows such as
+`13`, `89`, and `233` are treated as controls rather than contrast evidence.
+
+See `docs/experiments/digit-stride-parser.md` for the protocol.
